@@ -23,10 +23,10 @@ namespace CatCards.Controllers
         }
 
         //Not correct, not sure how to pull fact and pic and combine into random card.
-        [HttpGet("[random]")]
-        public ActionResult<CatCard> GetRandomCard()
+        [HttpGet("random")]
+        public ActionResult<CatCard> GetRandomCard(int id)
         {
-            CatCard returned = cardDao.GetCard(1);
+            CatCard returned = cardDao.GetCard(id);
 
             return returned;
         }
