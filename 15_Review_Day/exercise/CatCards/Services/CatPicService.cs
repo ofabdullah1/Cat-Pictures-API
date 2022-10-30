@@ -7,7 +7,7 @@ namespace CatCards.Services
     public class CatPicService : ICatPicService
     {
 
-        private readonly string API_PULL = @"https://cat-data.netlify.app/api/facts/random";
+        private readonly string API_PULL = @"https://cat-data.netlify.app/api/pictures/random";
 
         private readonly RestClient client = new RestClient();
 
