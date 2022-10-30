@@ -3,10 +3,13 @@ using CatCards.DAO;
 using CatCards.Models;
 using CatCards.Services;
 using Microsoft.AspNetCore.Mvc;
+using CatCards.DAO;
+using CatCards.Models;
+
 
 namespace CatCards.Controllers
 {
-    [Route("cards")]
+    [Route("[controller]")]
     [ApiController]
 
     public class CatController : ControllerBase
@@ -21,16 +24,18 @@ namespace CatCards.Controllers
             catPicService = _catPic;
             cardDao = _cardDao;
         }
+        
 
         //Not correct, not sure how to pull fact and pic and combine into random card.
-        [HttpPost("random")]
-        public ActionResult<CatCard> GetRandomCard()
+        [HttpGet("/api/cards/random")]
+        public ActionResult<CatCard> getRandomCat()
         {
-            CatFact fact = catFactService.GetFact();
-            CatPic pic = catPicService.GetPic();
-            CatCard returned = null;
+            CatCard newCatCard = new CatCard();
+            newCatCard.CatFact = catFactService.GetFact().Text;
+            newCatCard.ImgUrl = catPicService.GetPic().File;
 
-            return returned;
+
+            return newCatCard;
         }
 
         [HttpGet()]
@@ -40,14 +45,14 @@ namespace CatCards.Controllers
             return Ok(cardDao.GetAllCards());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<CatCard> GetCard(int id)
+        [HttpGet("{catCardId}")]
+        public ActionResult<CatCard> getCat(int catCardId)
         {
-            CatCard card = cardDao.GetCard(id);
+            CatCard card = cardDao.GetCard(catCardId);
 
             if (card != null)
             {
-                return card;
+                return Ok(card);
             }
 
             return NotFound();

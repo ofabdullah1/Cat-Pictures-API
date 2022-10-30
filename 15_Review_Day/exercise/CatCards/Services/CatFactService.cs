@@ -31,12 +31,11 @@ namespace CatCards.Services
                 try
                 {
 
-                
-                    CatFact catFact = response.Data;
+                    catFact = response.Data;
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error occurred - getting news stories " + ex.Message);
+                    throw new Exception("Error occurred - getting cat fact " + ex.Message);
                 }
 
                 return catFact;

@@ -18,7 +18,7 @@ namespace CatCards.Services
         public CatPic GetPic()
         {
             RestRequest request = new RestRequest(API_PULL);
-            IRestResponse<CatFact> response = client.Get<CatFact>(request);
+            IRestResponse<CatPic> response = client.Get<CatPic>(request);
             if (response.ResponseStatus != ResponseStatus.Completed)
             {
                 throw new Exception("Error occurred - unable to reach server.");
@@ -33,11 +33,11 @@ namespace CatCards.Services
                 {
 
                     
-                    CatFact catFact = response.Data;
+                    catPic = response.Data;
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error occurred - getting news stories " + ex.Message);
+                    throw new Exception("Error occurred - getting cat fact" + ex.Message);
                 }
 
                 return catPic;
