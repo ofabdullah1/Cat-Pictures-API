@@ -65,7 +65,7 @@ namespace CatCards.Controllers
             return Created($"/cards/{added.CatCardId}", added);
         }
 
-        [HttpPut("api/cards/{id}")]
+        [HttpPut("/api/cards/{id}")]
         public ActionResult<CatCard> UpdatedCard(int id, CatCard catCard)
         {
             CatCard cardToUpdate = cardDao.GetCard(id);
@@ -82,18 +82,24 @@ namespace CatCards.Controllers
         }
 
 
-        [HttpDelete("api/cards/{id}")]
+        [HttpDelete("/api/cards/{id}")]
         public ActionResult DeleteCard(int id)
         {
-            bool result = cardDao.RemoveCard(id);
-            if (result)
-            {
-                return Ok();
-            }
-            else
+            CatCard cardToRemove = cardDao.GetCard(id);
+           
+            if (cardToRemove == null)
             {
                 return NotFound();
             }
+
+            bool result = cardDao.RemoveCard(id);
+            if (result)
+            {
+
+                return NoContent();
+            }
+            
+            return StatusCode(500);
         }
     }
 }
